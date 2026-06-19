@@ -52,7 +52,7 @@ Com o uso de Record, não foi necessário criar manualmente:
 
 O próprio Java gera esses métodos automaticamente, tornando o código mais limpo e fácil de manter.
 
-## 📊 Regras de Negócio
+## Regras de Negócio
 
 ### Média
 
