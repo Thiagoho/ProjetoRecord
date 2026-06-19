@@ -1,0 +1,323 @@
+Desafio 5 — Funções + Java Atualizado
+Tema
+
+Criar um sistema simples para calcular situação de aluno usando:
+
+✅ métodos
+✅ record
+✅ var
+✅ switch expression
+✅ text block
+✅ cálculo de média
+✅ if / lógica
+
+Objetivo
+
+Você vai refatorar o desafio do boletim, mas agora de forma mais moderna.
+
+Estrutura
+src
+├── aula5
+│   └── Main.java
+└── model
+    └── Aluno.java
+Classe Aluno com record
+---
+O que esse programa faz?
+
+Esse programa é um boletim escolar.
+
+Ele pergunta:
+
+Nome do aluno
+Nota 1
+Nota 2
+Quantidade de faltas
+
+Depois ele:
+
+Calcula a média.
+Verifica a situação do aluno.
+Mostra o resultado na tela.
+Classe Main
+
+Tudo começa aqui:
+
+public class Main {
+
+Pense nela como a porta de entrada da aplicação.
+
+É igual a ligar um carro.
+
+Quando você gira a chave, o motor começa.
+
+No Java, o motor começa aqui:
+
+public static void main(String[] args)
+Scanner
+var sc = new Scanner(System.in);
+
+Scanner é o funcionário que fica ouvindo o teclado.
+
+Quando você digita:
+
+Thiago
+
+Ele captura essa informação.
+
+var
+var nome = sc.nextLine();
+
+Antigamente era:
+
+String nome = sc.nextLine();
+
+Hoje o Java consegue descobrir sozinho.
+
+É como dizer:
+
+"Java, descubra o tipo para mim."
+
+Entrada dos dados
+var nome = sc.nextLine();
+var nota1 = sc.nextDouble();
+var nota2 = sc.nextDouble();
+var faltas = sc.nextInt();
+
+Exemplo:
+
+Nome: Thiago
+Nota1: 8
+Nota2: 7
+Faltas: 3
+
+Esses valores ficam guardados na memória.
+
+O que é o Record?
+
+Aqui está a grande novidade:
+
+public record Aluno(
+    String nome,
+    double nota1,
+    double nota2,
+    int faltas
+) {}
+Antes do Record
+
+Você precisava escrever:
+
+private String nome;
+private double nota1;
+private double nota2;
+private int faltas;
+
+Depois:
+
+public Aluno(...)
+
+Depois:
+
+getNome()
+getNota1()
+getNota2()
+getFaltas()
+
+Muito código repetitivo.
+
+Com Record
+
+Você escreve apenas:
+
+public record Aluno(
+    String nome,
+    double nota1,
+    double nota2,
+    int faltas
+) {}
+
+E o Java cria tudo sozinho.
+
+O Java gera automaticamente
+
+Ele cria:
+
+nome()
+nota1()
+nota2()
+faltas()
+
+Construtor:
+
+new Aluno(...)
+
+Também cria:
+
+toString()
+equals()
+hashCode()
+
+Tudo automaticamente.
+
+Criando um objeto
+
+Aqui:
+
+Aluno aluno =
+    new Aluno(nome, nota1, nota2, faltas);
+
+Exemplo:
+
+Aluno aluno =
+    new Aluno("Thiago", 8, 7, 3);
+
+Agora existe um aluno dentro da memória.
+
+Como acessar os dados?
+
+Classe tradicional:
+
+aluno.getNome();
+
+Record:
+
+aluno.nome();
+
+Muito mais simples.
+
+Método calcularMedia
+public static double calcularMedia(Aluno aluno)
+
+É uma função.
+
+Recebe:
+
+Aluno aluno
+
+E devolve:
+
+double
+O cálculo
+return
+    (aluno.nota1() + aluno.nota2()) / 2;
+
+Exemplo:
+
+8 + 7 = 15
+
+15 / 2 = 7.5
+
+Resultado:
+
+7.5
+Método verificarSituacao
+
+Recebe:
+
+media
+faltas
+Primeiro teste
+if(faltas >= 25)
+
+Significa:
+
+"O aluno faltou 25 vezes ou mais?"
+
+Se sim:
+
+return "REPROVADO POR FALTA";
+
+O método termina aqui.
+
+Switch moderno
+return switch((int) media)
+
+Transforma:
+
+7.5
+
+em:
+
+7
+
+Depois verifica:
+
+case 10, 9, 8, 7 -> "APROVADO";
+
+Exemplo:
+
+Média = 8
+
+Resultado:
+
+APROVADO
+
+Se for:
+
+case 6, 5 -> "RECUPERAÇÃO";
+
+Exemplo:
+
+Média = 5.5
+
+Vira:
+
+5
+
+Resultado:
+
+RECUPERAÇÃO
+---
+Text Block
+
+Outra novidade do Java moderno:
+
+var mensagem = """
+        === Resultado ===
+        Nome: %s
+        Média: %.2f
+        Faltas: %d
+        Situação: %s
+        """;
+
+Antes era:
+
+System.out.println("Nome: " + nome);
+System.out.println("Media: " + media);
+System.out.println("Situação: " + situacao);
+
+Agora fica muito mais organizado.
+
+Formatted
+.formatted(
+    aluno.nome(),
+    media,
+    aluno.faltas(),
+    situacao
+)
+
+Substitui:
+
+%s
+%.2f
+%d
+%s
+
+pelos valores reais.
+
+Exemplo final:
+
+=== Resultado ===
+
+Nome: Thiago
+Média: 7.50
+Faltas: 3
+Situação: APROVADO
+O que você aprendeu de Java moderno?
+Recurso	O que faz
+record	Cria classes de dados automaticamente
+var	O Java descobre o tipo
+switch ->	Switch moderno
+text block """	Texto multilinha
+.formatted()	Substitui %s, %d, %.2f
+record.nome()	Acessa dados sem getter
